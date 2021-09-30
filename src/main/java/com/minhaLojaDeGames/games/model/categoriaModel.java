@@ -29,6 +29,9 @@ public class categoriaModel {
 	@NotBlank
 	private String tipoConsole;//tipo de console
 	
+	@NotBlank
+	private String descricao;
+	
 	@OneToMany
 	
 	public Long getIdCategoria() {
@@ -45,6 +48,14 @@ public class categoriaModel {
 
 	public void setTipoConsole(String tipoConsole) {
 		this.tipoConsole = tipoConsole;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 	
 	
