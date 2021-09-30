@@ -18,6 +18,6 @@ public interface categoriaRepository extends JpaRepository<categoriaModel, Long>
 	 * @author Leonardo
 	 * @since 1.0
 	 */
-	public List<categoriaModel> findByDescricaoCategoriaContainingIgnoreCase(String descricao);
+	public List<categoriaModel> findAllByDescricaoContainingIgnoreCase(String descricao);
 
 }
