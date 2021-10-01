@@ -1,5 +1,8 @@
 package com.minhaLojaDeGames.games.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 /**
@@ -19,6 +24,7 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "tb_categoria")
+
 public class categoriaModel {
 
 	
@@ -32,8 +38,29 @@ public class categoriaModel {
 	@NotBlank
 	private String descricao;
 	
-	@OneToMany
+	/*@OneToMany(mappedBy = "idProduto", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties({"idProduto"})
+	private List<produtoModel> produto = new ArrayList<>();*/
 	
+	/*@OneToMany
+	@JoinColumn(name = "idProduto")
+	@JsonIgnoreProperties({"idProduto"})
+	private categoriaModel criador;*/
+	
+	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("categoria")
+	private List<produtoModel> produto;
+
+
+	
+	public List<produtoModel> getProduto() {
+		return produto;
+	}
+
+	public void setProduto(List<produtoModel> produto) {
+		this.produto = produto;
+	}
+
 	public Long getIdCategoria() {
 		return idCategoria;
 	}
