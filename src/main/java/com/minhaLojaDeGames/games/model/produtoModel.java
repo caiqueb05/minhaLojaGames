@@ -4,9 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 /**
@@ -30,7 +33,18 @@ public class produtoModel {
 	
 	private @NotBlank String genero;
 	
-	@OneToOne
+	@ManyToOne
+	@JsonIgnoreProperties("categoria")
+	
+	private categoriaModel categoria;
+	
+	public categoriaModel getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(categoriaModel categoria) {
+		this.categoria = categoria;
+	}
 
 	public Long getIdProduto() {
 		return idProduto;
