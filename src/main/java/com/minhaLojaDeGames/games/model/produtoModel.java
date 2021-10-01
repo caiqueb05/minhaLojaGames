@@ -26,7 +26,7 @@ public class produtoModel {
 	
 	private @NotBlank String nome;
 	
-	private @NotBlank double preco;
+	private double preco;
 	
 	private @NotBlank String genero;
 	
