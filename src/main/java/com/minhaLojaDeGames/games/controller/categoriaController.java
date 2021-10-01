@@ -59,10 +59,16 @@ public class categoriaController {
 		return ResponseEntity.status(201).body(repositorio.save(novaCategoria));
 	}
 
-	@DeleteMapping("/deletar/{id_postagem}")
-	public void deletar(@PathVariable(value = "id_categoria") Long idCategoria) {
+	@DeleteMapping("/deletar/{id_categoria}")
+	public ResponseEntity<categoriaModel> deletar(@PathVariable(value = "id_categoria") Long idCategoria) {
 		Optional<categoriaModel> objetoOptional = repositorio.findById(idCategoria);
+
+		if (objetoOptional.isPresent()) {
+			repositorio.deleteById(idCategoria);
+			return ResponseEntity.status(204).build();
+		} else {
+			return ResponseEntity.status(400).build();
+		}
 	}
 
 }
-
