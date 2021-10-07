@@ -43,7 +43,7 @@ public class UsuarioModel {
 	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("usuario")
-	private List<produtoModel> produto;
+	private List<ProdutoModel> produto;
 
 	public long getIdUsuario() {
 		return idUsuario;

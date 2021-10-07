@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.minhaLojaDeGames.games.model.categoriaModel;
+import com.minhaLojaDeGames.games.model.CategoriaModel;
 
-public interface categoriaRepository extends JpaRepository<categoriaModel, Long> {
+public interface CategoriaRepository extends JpaRepository<CategoriaModel, Long> {
 
 	/**
 	 * metodo utilizado para relizar pesquisar pela coluna descricao da tabela
@@ -18,6 +18,6 @@ public interface categoriaRepository extends JpaRepository<categoriaModel, Long>
 	 * @author Leonardo
 	 * @since 1.0
 	 */
-	public List<categoriaModel> findAllByDescricaoContainingIgnoreCase(String descricao);
+	public List<CategoriaModel> findAllByDescricaoContainingIgnoreCase(String descricao);
 
 }
