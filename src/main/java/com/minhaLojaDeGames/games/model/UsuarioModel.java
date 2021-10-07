@@ -85,4 +85,5 @@ public class UsuarioModel {
 		this.idadeUsuario = idadeUsuario;
 	}
 
+
 }

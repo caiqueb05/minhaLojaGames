@@ -36,13 +36,13 @@ public class UsuarioController {
 			return ResponseEntity.status(200).body(repositorio.findAll());
 		}
 	}
-
+	
 	@GetMapping("/{id_usuario}")
 	public ResponseEntity<UsuarioModel> getById(@PathVariable(value = "id_usuario") Long idUsuario) {
 		return repositorio.findById(idUsuario).map(resp -> ResponseEntity.status(200).body(resp))
 				.orElse(ResponseEntity.status(400).build());
 	}
-
+	
 	@PostMapping("/salvar")
 	public ResponseEntity<UsuarioModel> salvar(@Valid @RequestBody UsuarioModel novaUsuario) {
 		return ResponseEntity.status(201).body(repositorio.save(novaUsuario));
@@ -65,3 +65,4 @@ public class UsuarioController {
 		}
 	}
 }
+

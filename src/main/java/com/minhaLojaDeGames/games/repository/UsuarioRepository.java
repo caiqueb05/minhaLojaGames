@@ -10,6 +10,6 @@ import com.minhaLojaDeGames.games.model.UsuarioModel;
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long> {
 
-	Optional<UsuarioModel> findByEmail(String username);
+	Optional<UsuarioModel> findByEmailUsuario(String emailUsuario);
 
 }
