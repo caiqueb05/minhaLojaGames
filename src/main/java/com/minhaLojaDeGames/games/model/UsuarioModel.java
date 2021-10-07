@@ -1,14 +1,18 @@
 package com.minhaLojaDeGames.games.model;
 
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -36,6 +40,10 @@ public class UsuarioModel {
 
 	@NotBlank
 	private int idadeUsuario;
+	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("usuario")
+	private List<produtoModel> produto;
 
 	public long getIdUsuario() {
 		return idUsuario;
@@ -84,6 +92,5 @@ public class UsuarioModel {
 	public void setIdadeUsuario(int idadeUsuario) {
 		this.idadeUsuario = idadeUsuario;
 	}
-
 
 }

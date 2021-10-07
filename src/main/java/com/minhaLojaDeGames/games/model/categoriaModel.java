@@ -26,7 +26,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "tb_categoria")
 
 public class categoriaModel {
-
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,20 +37,9 @@ public class categoriaModel {
 	@NotBlank
 	private String descricao;
 	
-	/*@OneToMany(mappedBy = "idProduto", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties({"idProduto"})
-	private List<produtoModel> produto = new ArrayList<>();*/
-	
-	/*@OneToMany
-	@JoinColumn(name = "idProduto")
-	@JsonIgnoreProperties({"idProduto"})
-	private categoriaModel criador;*/
-	
 	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("categoria")
 	private List<produtoModel> produto;
-
-
 	
 	public List<produtoModel> getProduto() {
 		return produto;
