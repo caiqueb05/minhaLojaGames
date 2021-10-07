@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.empowerenergy.empowerenergy.model.UsuarioModel;
-import com.empowerenergy.empowerenergy.repository.UsuarioRepository;
+import com.minhaLojaDeGames.games.model.UsuarioModel;
+import com.minhaLojaDeGames.games.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping("/api/v1/usuario")
