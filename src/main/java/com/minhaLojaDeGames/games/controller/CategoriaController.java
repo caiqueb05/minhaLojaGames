@@ -17,18 +17,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.minhaLojaDeGames.games.model.categoriaModel;
-import com.minhaLojaDeGames.games.repository.categoriaRepository;
+import com.minhaLojaDeGames.games.model.CategoriaModel;
+import com.minhaLojaDeGames.games.repository.CategoriaRepository;
 
 @RestController
 @RequestMapping("/api/v1/categoria")
 @CrossOrigin("*")
-public class categoriaController {
+public class CategoriaController {
 
-	private @Autowired categoriaRepository repositorio;
+	private @Autowired CategoriaRepository repositorio;
 
 	@GetMapping("/todes")
-	public ResponseEntity<List<categoriaModel>> getAll() {
+	public ResponseEntity<List<CategoriaModel>> getAll() {
 		if (repositorio.findAll().isEmpty()) {
 			return ResponseEntity.status(204).build();
 		} else {
@@ -38,8 +38,8 @@ public class categoriaController {
 	}
 
 	@GetMapping("/{id_categoria}")
-	public ResponseEntity<categoriaModel> pegarPorId(@PathVariable(value = "id_categoria") Long idCategoria) {
-		java.util.Optional<categoriaModel> objetoOptional = repositorio.findById(idCategoria);
+	public ResponseEntity<CategoriaModel> pegarPorId(@PathVariable(value = "id_categoria") Long idCategoria) {
+		java.util.Optional<CategoriaModel> objetoOptional = repositorio.findById(idCategoria);
 
 		if (objetoOptional.isPresent()) {
 			return ResponseEntity.status(200).body(objetoOptional.get());
@@ -49,7 +49,7 @@ public class categoriaController {
 	}
 
 	@PostMapping("/salvar")
-	public ResponseEntity<categoriaModel> salvar(@Valid @RequestBody categoriaModel novaCategoria) {
+	public ResponseEntity<CategoriaModel> salvar(@Valid @RequestBody CategoriaModel novaCategoria) {
 		return ResponseEntity.status(201).body(repositorio.save(novaCategoria));
 
 	}
@@ -59,7 +59,7 @@ public class categoriaController {
 	// categoriaModel novaCategoria) {
 	// return repositorio.findById().map(resp ->
 	// ResponseEntity.status(201).body(resp)).orElse(ResponseEntity.status(400).build());
-	public Optional<categoriaModel> atualizarCategoria(categoriaModel categoriaParaAtualizar) {
+	public Optional<CategoriaModel> atualizarCategoria(CategoriaModel categoriaParaAtualizar) {
 		return repositorio.findById(categoriaParaAtualizar.getIdCategoria()).map(resp -> {
 			resp.setTipoConsole(categoriaParaAtualizar.getTipoConsole());
 			resp.setDescricao(categoriaParaAtualizar.getDescricao());
@@ -72,8 +72,8 @@ public class categoriaController {
 
 	
 	@DeleteMapping("/deletar/{id_categoria}")
-	public ResponseEntity<categoriaModel> deletar(@PathVariable(value = "id_categoria") Long idCategoria) {
-		Optional<categoriaModel> objetoOptional = repositorio.findById(idCategoria);
+	public ResponseEntity<CategoriaModel> deletar(@PathVariable(value = "id_categoria") Long idCategoria) {
+		Optional<CategoriaModel> objetoOptional = repositorio.findById(idCategoria);
 
 		if (objetoOptional.isPresent()) {
 			repositorio.deleteById(idCategoria);

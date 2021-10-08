@@ -5,12 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 
 /**
  * Classe espelho da tabela produto no banco db_minha_loja_games.
@@ -22,27 +20,38 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_produtos")
-public class produtoModel {
+public class ProdutoModel {
 
-	
 	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long idProduto;
-	
+
 	private @NotBlank String nome;
-	
+
 	private double preco;
-	
+
 	private @NotBlank String genero;
+
+	@ManyToOne
+	@JsonIgnoreProperties("usuario")
+	private UsuarioModel usuario;
 	
 	@ManyToOne
 	@JsonIgnoreProperties("categoria")
+	private CategoriaModel categoria;
+
 	
-	private categoriaModel categoria;
-	
-	public categoriaModel getCategoria() {
+	public UsuarioModel getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioModel usuario) {
+		this.usuario = usuario;
+	}
+
+	public CategoriaModel getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(categoriaModel categoria) {
+	public void setCategoria(CategoriaModel categoria) {
 		this.categoria = categoria;
 	}
 
@@ -77,6 +86,5 @@ public class produtoModel {
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
-	
-	
+
 }
