@@ -55,24 +55,20 @@ public class categoriaController {
 	}
 
 	@PutMapping("/atualizar") // Arrumar rota Put para atualizar conforme o id passado pela rota
-	public ResponseEntity<categoriaModel> atualizar(@Valid @RequestBody categoriaModel novaCategoria) {
-		return repositorio.findById(novaCategoria.getIdCategoria())
-				.map(result -> ResponseEntity.status(200).body(repositorio.save(novaCategoria)))
-				.orElse(ResponseEntity.status(400).build());
-				
-
+	// public ResponseEntity<categoriaModel> atualizar(@Valid @RequestBody
+	// categoriaModel novaCategoria) {
+	// return repositorio.findById().map(resp ->
+	// ResponseEntity.status(201).body(resp)).orElse(ResponseEntity.status(400).build());
+	public Optional<categoriaModel> atualizarCategoria(categoriaModel categoriaParaAtualizar) {
+		return repositorio.findById(categoriaParaAtualizar.getIdCategoria()).map(resp -> {
+			resp.setTipoConsole(categoriaParaAtualizar.getTipoConsole());
+			resp.setDescricao(categoriaParaAtualizar.getDescricao());
+			return Optional.ofNullable(repositorio.save(resp));
+		}).orElseGet(() -> {
+			return Optional.empty();
+		});
 	}
-
-	@PutMapping("/atualizar2") // Arrumar rota Put para atualizar conforme o id passado pela rota
-	public ResponseEntity<categoriaModel> atualizar2(@Valid @RequestBody categoriaModel novaCategoria) {
-		java.util.Optional<categoriaModel> objetoOptional = repositorio.findById(novaCategoria.getIdCategoria());
-
-		if (objetoOptional.isPresent()) {
-			return ResponseEntity.status(200).body(repositorio.save(novaCategoria));
-		} else {
-			return ResponseEntity.status(400).build();
-		}
-	}
+	
 
 	
 	@DeleteMapping("/deletar/{id_categoria}")
