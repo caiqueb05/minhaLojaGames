@@ -70,6 +70,7 @@ public class CategoriaController {
 	}
 	
 
+	
 	@DeleteMapping("/deletar/{id_categoria}")
 	public ResponseEntity<CategoriaModel> deletar(@PathVariable(value = "id_categoria") Long idCategoria) {
 		Optional<CategoriaModel> objetoOptional = repositorio.findById(idCategoria);
