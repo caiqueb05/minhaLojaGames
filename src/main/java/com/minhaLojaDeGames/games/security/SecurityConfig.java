@@ -25,6 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/usuario/salvar")
 		.permitAll()
 		.antMatchers(HttpMethod.PUT, "/api/v1/usuario/credenciais").permitAll().anyRequest().authenticated()
+		.antMatchers(HttpMethod.PUT, "/api/v1/usuario/credenciais").permitAll().anyRequest().authenticated()
 		.and().httpBasic()
 		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and().cors().and().csrf().disable();
