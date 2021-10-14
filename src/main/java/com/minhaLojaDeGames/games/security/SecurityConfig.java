@@ -5,11 +5,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private @Autowired UserDetailsServiceImpl service;
@@ -22,10 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/usuario/salvar")
-		.permitAll()
-		.antMatchers(HttpMethod.PUT, "/api/v1/usuario/credenciais").permitAll().anyRequest().authenticated()
-		.antMatchers(HttpMethod.PUT, "/api/v1/usuario/credenciais").permitAll().anyRequest().authenticated()
+		http.authorizeRequests()
+		.antMatchers(HttpMethod.POST, "/api/v1/usuario/cadastrar").permitAll()
+		.antMatchers(HttpMethod.POST, "/api/v1/usuario/logar").permitAll()
 		.and().httpBasic()
 		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and().cors().and().csrf().disable();
@@ -36,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(service);
 
-		auth.inMemoryAuthentication().withUser("boaz").password(senhaEncoder().encode("boaz"))
+		auth.inMemoryAuthentication().withUser("root").password(senhaEncoder().encode("root"))
 		.authorities("ROLE_ADMIN");
 	}
 
