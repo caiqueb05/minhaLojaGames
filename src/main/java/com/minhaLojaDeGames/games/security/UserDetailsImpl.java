@@ -20,7 +20,9 @@ public class UserDetailsImpl implements UserDetails {
 		this.email = usuario.getEmailUsuario();
 		this.senha = usuario.getSenhaUsuario();
 	}
-
+	
+	public UserDetailsImpl() {}
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return autorizacoes;

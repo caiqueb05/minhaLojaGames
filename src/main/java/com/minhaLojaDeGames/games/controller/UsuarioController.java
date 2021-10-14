@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,17 +17,23 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
+import com.minhaLojaDeGames.games.model.UserLogin;
 import com.minhaLojaDeGames.games.model.UsuarioModel;
 import com.minhaLojaDeGames.games.repository.UsuarioRepository;
+import com.minhaLojaDeGames.games.services.UsuarioServices;
 
 @RestController
 @RequestMapping("/api/v1/usuario")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UsuarioController {
 
 	@Autowired
 	private UsuarioRepository repositorio;
+	
+	@Autowired
+	private UsuarioServices usuarioService;
 
 	@GetMapping("/todos")
 	public ResponseEntity<List<UsuarioModel>> getAll() {
@@ -43,11 +50,11 @@ public class UsuarioController {
 				.orElse(ResponseEntity.status(400).build());
 	}
 	
-	@PostMapping("/salvar")
+	/*@PostMapping("/salvar")
 	public ResponseEntity<UsuarioModel> salvar(@Valid @RequestBody UsuarioModel novaUsuario) {
 		return ResponseEntity.status(201).body(repositorio.save(novaUsuario));
 
-	}
+	}*/
 
 	@PutMapping("/atualizar")
 	public ResponseEntity<UsuarioModel> atualizar(@Valid @RequestBody UsuarioModel novoUsuario) {
@@ -63,6 +70,24 @@ public class UsuarioController {
 		} else {
 			return ResponseEntity.status(400).build();
 		}
+	}
+	
+	@PostMapping("/logar")
+	public ResponseEntity<UserLogin> Authentication(@RequestBody Optional<UserLogin> user) {
+		return usuarioService.Logar(user).map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+	}
+
+	
+	
+	@PostMapping("/cadastrar")
+	public ResponseEntity<Object> salvar(@Valid @RequestBody UsuarioModel usuario) {
+		return usuarioService.CadastrarUsuario(usuario).map(resp -> ResponseEntity.status(201).body(resp))
+				.orElseThrow(() -> {
+					throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+							"Email existente, cadastre outro email!.");
+				});
+
 	}
 }
 
